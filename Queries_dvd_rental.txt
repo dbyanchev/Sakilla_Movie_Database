@@ -1,0 +1,104 @@
+/* Query_Q1 - used for the first insight */
+WITH t1 AS (
+ SELECT f.title AS film_title,
+        c.name AS film_category
+   FROM film AS f
+	JOIN film_category AS fc
+          ON f.film_id = fc.film_id 
+
+        JOIN category AS c
+          ON c.category_id = fc.category_id
+   
+        JOIN inventory AS i
+          ON f.film_id = i.film_id
+       
+        JOIN rental AS r
+          ON i.inventory_id = r.inventory_id
+
+  WHERE c.name IN ('Animation', 'Children', 'Comedy', 'Classics', 'Family', 'Music'))
+
+ SELECT film_title,
+        film_category,
+        COUNT(*) AS rental_count
+   FROM t1
+  GROUP BY 1,2
+  ORDER BY 2,1;
+
+
+
+/* Query_Q2 - used for the second insight */
+WITH t1 AS (
+ SELECT f.title as film_title,
+        c.name as film_category,
+        NTILE(4) OVER (ORDER BY rental_duration) as standard_quartile
+   FROM film f
+        JOIN film_category fc
+ 	  ON f.film_id = fc.film_id
+ 	JOIN category c
+ 	  ON c.category_id = fc.category_id
+  WHERE c.name IN ('Animation', 'Children', 'Comedy', 'Classics', 'Family', 'Music'))
+
+ SELECT film_category,
+        standard_quartile,
+        COUNT(*)
+   FROM t1
+  GROUP BY 1,2
+  ORDER BY 1,2;
+
+
+
+/* Query_Q3 - used for the third insight */
+WITH t1 AS (
+ SELECT	DATE_PART('month', rental_date) AS month,
+	DATE_PART('year', rental_date) AS year,
+       	staff_id,              
+       	COUNT(*) AS count_rentals  
+	FROM rental
+	GROUP BY 1,2,3)
+
+ SELECT t1.month AS Rental_month,
+        t1.year AS Rental_year,
+        store.store_id AS Store_ID,
+        t1.count_rentals AS Count_rentals
+   FROM t1	  
+        JOIN staff
+	ON staff.staff_id = t1.staff_id
+        JOIN store
+	ON staff.staff_id = store.manager_staff_id
+  ORDER BY 2,1,4 DESC;
+
+
+
+/* Query Q4 - used for the fourth insight */
+
+With t1 AS
+(SELECT customer.first_name || ' ' || customer.last_name AS customer_full_name,
+        SUM(payment.amount) as total
+   FROM customer
+        JOIN payment
+        ON customer.customer_id = payment.customer_id	
+  WHERE DATE_PART('year', payment_date) = '2007'
+  GROUP BY 1
+  ORDER BY 2 DESC
+  LIMIT 10),
+
+     t2 AS
+(SELECT DATE_TRUNC('month', payment_date) as month,
+	customer.first_name || ' ' || customer.last_name AS customer_full_name,
+        SUM(payment.amount) as pay_amount,
+        COUNT(*) as pay_countpermon
+  FROM customer
+  JOIN payment 
+    ON customer.customer_id = payment.customer_id
+ WHERE DATE_PART('year', payment_date) = '2007'
+ GROUP BY 1,2
+ ORDER BY 2,1)
+
+SELECT t2.month,
+       t1.customer_full_name,
+       t2.pay_countpermon,
+       t2.pay_amount
+  FROM t1
+       JOIN t2 
+       ON t1.customer_full_name=t2.customer_full_name
+ ORDER BY 2,1;

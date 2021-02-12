@@ -1,5 +1,5 @@
 ### CREATION DATE : OCT - 2020
-The project was created OC-2020 on the local machine.
+The project was created OCT-2020 on the local machine.
 This is my 1st project from the Udacity "Programming for Data Science with Python"
 Nanodegree Program.
 

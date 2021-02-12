@@ -1,23 +1,23 @@
 ### CREATION DATE : OCT - 2020
-The project was created OCT-2020 on the local machine.
-This is my 1st project from the Udacity "Programming for Data Science with Python"
-Nanodegree Program.
+    The project was created OCT-2020 on the local machine.
+    This is my 1st project from the Udacity "Programming for Data Science with Python"
+    Nanodegree Program.
 
 ### Sakilla Movie Database
-The goal was to investigate SQL Relational Database of movie rentals in two
-stores and answer questions via analysis.
+    The goal was to investigate SQL Relational Database of movie rentals in two
+    stores and answer questions via analysis.
 
 
 ### Description
-Used SQL queries, data analysis and visualizations and summarized all findings
-and statistical data in а Power Point presentation
+    Used SQL queries, data analysis and visualizations and summarized all findings
+    and statistical data in а Power Point presentation
 
 #Question 1
 
     We want to understand more about the movies that families are watching.
-     Based on the family friendly categories create a query that lists each
-      movie, the film category it is classified in, and the number of times
-      it has been rented out.
+    Based on the family friendly categories create a query that lists each
+    movie, the film category it is classified in, and the number of times
+    it has been rented out.
 
 #Question 2
 
@@ -41,11 +41,11 @@ and statistical data in а Power Point presentation
     and what was the amount of the monthly payments.
 
 ### Files used
-We have used one ERD database with 15 tables in it.
+    We have used one ERD database with 15 tables in it.
 
-Analyzed them with SQL and documented everything in Power Point Presentation
-and PDF report.
+    Analyzed them with SQL and documented everything in Power Point Presentation
+    and PDF report.
 
 
 ### Credits
-www.udacity.com
+    www.udacity.com
